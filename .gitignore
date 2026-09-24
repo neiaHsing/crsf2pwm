@@ -1,0 +1,21 @@
+# Local tools, SDKs, virtual environments and build products
+/.local/
+/build/
+/.venv*/
+/arduino_data/
+/arduino_downloads/
+/arduino_build*/
+*.o
+*.a
+*.elf
+*.hex
+*.bin
+*.map
+*.lst
+*.d
+.DS_Store
+.env
+.env.*
+!.env.example
+# Unrelated personal document already present in this workspace
+/social_posts.md
