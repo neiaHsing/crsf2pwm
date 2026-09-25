@@ -5,12 +5,12 @@
 `bash scripts/setup-arduino.sh` 安装 AirMCU **0.6.4** 及其工具依赖。索引使用 Air-duino 官方 GitHub 发布地址。工具与缓存保存在 `.local/arduino/`，不会写入 Git。
 
 ```sh
-bash scripts/build.sh firmware   # 完整工程，AIR001 32 KB / 4 KB
+bash scripts/build.sh firmware   # 完整工程，32 KB / 4 KB 构建配置
 bash scripts/build.sh led        # PB2 LED，20 KB / 3 KB
-bash scripts/build.sh py32-check # 完整工程的 PY32 容量检查，当前预期失败
+bash scripts/build.sh py32-check # 完整工程的 20 KB / 3 KB 容量检查
 ```
 
-产物位于 `build/<配置>/`，包括 `.hex`、`.bin`、`.elf` 和 `.map`。源码目录名与 `.ino` 文件名保持一致，可直接作为 Arduino sketch 打开。使用 Arduino IDE 时安装相同核心并选择 Air001 Dev Chip、HSI 8 MHz；LED 的 20 KB/3 KB 链接限制由本仓库脚本显式设置，IDE 默认配置没有这一限制。
+产物位于 `build/<配置>/`，包括 `.hex`、`.bin`、`.elf` 和 `.map`。源码目录名与 `.ino` 文件名保持一致，可直接作为 Arduino sketch 打开。使用 Arduino IDE 时安装相同核心，并按 `scripts/build.sh` 中的 `--fqbn` 配置开发板和 HSI 8 MHz 时钟；LED 的 20 KB/3 KB 链接限制由本仓库脚本显式设置，IDE 默认配置没有这一限制。
 
 如已有 ARM GCC 和 CMSIS，可复用本机安装：
 
@@ -39,6 +39,6 @@ bash scripts/flash-led.sh /path/to/Puya.PY32F0xx_DFP.1.2.6.pack YOUR_PROBE_UID
 
 连接 SWDIO、SWCLK 和公共 GND，按调试器说明连接目标供电/电平参考。通常不用按 BOOT0 或 NRST；供电、BOOT0 与复位的实际电路由硬件说明补充。
 
-## 当前限制
+## 构建配置
 
-完整固件的 AIR001 配置不能直接作为 PY32F002A 的容量保证。`py32-check` 保留了严格的 20 KB/3 KB 限制；不会为了通过编译放宽它。当前工作仅整理工程，没有完成完整 CRSF 固件向 PY32F002A 的移植或容量优化。
+固件可运行在 PY32F002A 上。`firmware` 配置采用 32 KB Flash / 4 KB RAM 的构建限制；`led` 与 `py32-check` 采用 20 KB Flash / 3 KB RAM 的构建限制。开发板标识由 `scripts/build.sh` 指定，用于选择 Arduino 核心的编译配置。各配置的历史构建结果见 [验证记录](validation.md)。

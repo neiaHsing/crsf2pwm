@@ -240,7 +240,7 @@ static void setupGpio()
 void setup() {
   // put your setup code here, tod:\ZY\RC\elrs\Crsf2PWM\crsf2pwm\CrsfSerial\CrsfSerial.h run once:
   Serial.begin(115200);
-  Serial.println("CRSF2PWM(Air001) Start!");
+  Serial.println("CRSF2PWM(PY32F002A) Start!");
 
   setupGpio();
   setupCrsf();
